@@ -183,6 +183,41 @@ Social buttons stay hidden until those URLs are set.
 
 ---
 
-## 10. More detail
+## 10. Push to GitHub (get your repo link)
+
+Your project is committed **locally**. There is no GitHub link yet until you create a repo and push.
+
+### Step 1 — Create an empty repo on GitHub
+
+1. Go to https://github.com/new  
+2. Repository name: e.g. `mylos-website`  
+3. Leave it **empty** (no README, no .gitignore — you already have those)  
+4. Click **Create repository**  
+5. Copy the URL GitHub shows, e.g. `https://github.com/YOUR_USERNAME/mylos-website.git`
+
+### Step 2 — Connect and push (PowerShell)
+
+Replace `YOUR_USERNAME` with your GitHub username:
+
+```powershell
+cd C:\Users\navak\Downloads\mylos-website
+git remote add origin https://github.com/YOUR_USERNAME/mylos-website.git
+git branch -M main
+git push -u origin main
+```
+
+### Your GitHub link (after push)
+
+```text
+https://github.com/YOUR_USERNAME/mylos-website
+```
+
+That is the repo link. Share it or open it in the browser to confirm the code is online.
+
+**Note:** `.env` is not committed (secrets stay local). Only `.env.example` is in the repo.
+
+---
+
+## 11. More detail
 
 See **README.md** for project structure, build/deploy notes, and the full pre-launch checklist.
