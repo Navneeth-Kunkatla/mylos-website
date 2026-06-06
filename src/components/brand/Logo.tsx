@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { site } from "@/lib/site-config";
+import { images, site } from "@/lib/site-config";
 
 type LogoProps = {
   className?: string;
@@ -7,17 +7,14 @@ type LogoProps = {
 };
 
 export default function Logo({ className = "", variant = "navbar" }: LogoProps) {
-  const height = variant === "footer" ? 48 : 40;
-  const width = variant === "footer" ? 160 : 132;
+  const sizeClass = variant === "footer" ? "h-16 sm:h-[4.5rem]" : "h-12 sm:h-14";
 
   return (
     <Link href="/" className={`inline-flex items-center ${className}`} aria-label={site.name}>
       <img
-        src="/logo.svg"
-        alt={`${site.name} logo`}
-        width={width}
-        height={height}
-        className="h-auto w-auto max-h-12 object-contain object-left"
+        src={images.logo}
+        alt={`${site.legalName} logo`}
+        className={`${sizeClass} w-auto object-contain object-left rounded-lg`}
       />
     </Link>
   );
