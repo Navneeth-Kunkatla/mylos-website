@@ -12,7 +12,7 @@ export default function SocialLinks({ layout = "row" }: SocialLinksProps) {
       label: "Follow on Instagram",
       icon: SiInstagram,
       className:
-        "flex items-center gap-3 bg-white text-[#1A0E3A] px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-lg w-full sm:w-auto justify-center",
+        "flex items-center gap-3 bg-accent text-accent-foreground px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-lg w-full sm:w-auto justify-center",
     },
     social.x && {
       href: social.x,

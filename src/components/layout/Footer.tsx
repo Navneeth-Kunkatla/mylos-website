@@ -4,7 +4,7 @@ import { site } from "@/lib/site-config";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#1A0E3A] text-white pt-16 pb-8">
+    <footer className="bg-secondary text-secondary-foreground pt-16 pb-8">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           <div>
@@ -16,14 +16,19 @@ export default function Footer() {
             <h4 className="font-display text-xl mb-6 text-white">MENU</h4>
             <ul className="space-y-4">
               <li>
-                <Link href="/boba" className="text-gray-300 hover:text-primary transition-colors font-semibold">
+                <a href="#boba-menu" className="text-gray-300 hover:text-primary transition-colors font-semibold">
                   Boba Teas
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/ice-cream" className="text-gray-300 hover:text-primary transition-colors font-semibold">
-                  Artisan Ice Cream
-                </Link>
+                <a href="#coffee-menu" className="text-gray-300 hover:text-primary transition-colors font-semibold">
+                  Coffee &amp; Waffles
+                </a>
+              </li>
+              <li>
+                <a href="#ice-cream-menu" className="text-gray-300 hover:text-primary transition-colors font-semibold">
+                  Stone Ice Cream
+                </a>
               </li>
             </ul>
           </div>
@@ -32,14 +37,14 @@ export default function Footer() {
             <h4 className="font-display text-xl mb-6 text-white">MYLO&apos;S</h4>
             <ul className="space-y-4">
               <li>
-                <Link href="/find-us" className="text-gray-300 hover:text-primary transition-colors font-semibold">
-                  Locations
-                </Link>
+                <a href="#find-us" className="text-gray-300 hover:text-primary transition-colors font-semibold">
+                  Location
+                </a>
               </li>
               <li>
-                <Link href="/about" className="text-gray-300 hover:text-primary transition-colors font-semibold">
+                <a href="#top" className="text-gray-300 hover:text-primary transition-colors font-semibold">
                   About
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
