@@ -1,91 +1,56 @@
+import { useEffect } from "react";
 import { motion } from "framer-motion";
-import { Link } from "wouter";
+import { MapPin, Clock, ExternalLink } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import SocialLinks from "@/components/layout/SocialLinks";
-import { images, site } from "@/lib/site-config";
+import MotionWelcome from "@/components/home/MotionWelcome";
+import { images, locations } from "@/lib/site-config";
 import {
   bobaPricing,
   milkTeas,
+  milkTeaBaseNote,
   fruitTeas,
   lemonadeSlushies,
   toppings,
+  sugarLevels,
+  iceLevels,
+  bobaAddons,
+  fruitTeaBaseNote,
+  coffeeHot,
+  coffeeIced,
+  coffeeAddons,
+  coffeeSyrups,
+  syrupPrice,
+  waffles,
   iceCreamSizes,
-  iceCreamFlavors,
+  iceCreamMixins,
+  iceCreamDrizzles,
+  iceCreamHighlight,
 } from "@/lib/menu-data";
 
 const fadeUp = { hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } };
 
 export default function Home() {
+  const location = locations[0];
+
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (!hash) return;
+    const timer = setTimeout(() => {
+      document.querySelector(hash)?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="min-h-screen bg-white overflow-hidden">
       <Navbar />
 
-      <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 bg-primary">
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <div className="inline-flex items-center bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 mb-8 border border-white/30">
-                <span className="text-white font-bold text-sm tracking-wide">✦ Party in a cup</span>
-              </div>
-              <h1 className="text-6xl md:text-8xl font-display font-black leading-[1.1] mb-6">
-                <span className="text-white block">SIPS &</span>
-                <span className="text-white block">SCOOPS,</span>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFD600] to-[#FF6B00] block mt-2">
-                  YOUR WAY
-                </span>
-              </h1>
-              <p className="text-white/90 text-xl md:text-2xl font-semibold max-w-lg mb-10 leading-relaxed">
-                {site.description}
-              </p>
-              <div className="flex gap-4 flex-wrap">
-                <a
-                  href="#boba-menu"
-                  className="bg-[#1A1A3E] text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-black transition-colors shadow-lg hover:-translate-y-1"
-                >
-                  See Boba Menu
-                </a>
-                <a
-                  href="#ice-cream-menu"
-                  className="bg-white text-primary px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-50 transition-colors shadow-lg hover:-translate-y-1"
-                >
-                  See Ice Cream
-                </a>
-              </div>
-            </motion.div>
+      <MotionWelcome />
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative"
-            >
-              <div className="absolute top-[-20px] right-[-20px] z-20 bg-white rounded-full p-4 shadow-xl rotate-12 flex items-center justify-center w-28 h-28 border-4 border-primary">
-                <span className="text-primary font-display font-bold text-center leading-tight">
-                  100%
-                  <br />
-                  Fresh!
-                </span>
-              </div>
-              <div className="bg-white rounded-[3rem] p-6 shadow-2xl rotate-[-3deg] transform transition-transform hover:rotate-0 duration-500">
-                <img
-                  src={images.heroBoba}
-                  alt={`${site.name} boba tea`}
-                  className="w-full h-auto rounded-[2rem] object-cover aspect-[4/5]"
-                />
-              </div>
-            </motion.div>
-          </div>
-        </div>
-        <div className="absolute top-20 left-10 w-20 h-20 bg-white/10 rounded-full blur-2xl" />
-        <div className="absolute bottom-20 right-20 w-40 h-40 bg-[#FFD600]/20 rounded-full blur-3xl" />
-      </section>
-
-      <section id="boba-menu" className="py-24 bg-[#FFF8F6]">
+      {/* ── BOBA ── */}
+      <section id="boba-menu" className="py-24 bg-muted scroll-mt-24">
         <div className="container mx-auto px-6 max-w-6xl">
           <motion.div
             initial="hidden"
@@ -99,7 +64,7 @@ export default function Home() {
             </div>
             <h2 className="text-5xl md:text-6xl font-display font-black text-foreground mb-4">BOBA TEAS</h2>
             <p className="text-gray-400 text-lg max-w-xl mx-auto">
-              Medium {bobaPricing.medium} · Large {bobaPricing.large} · Flavor add-ons {bobaPricing.flavorAddon}
+              Medium {bobaPricing.medium} · Large {bobaPricing.large} · Flavor add-on {bobaPricing.flavorAddon}
             </p>
           </motion.div>
 
@@ -111,13 +76,18 @@ export default function Home() {
               variants={fadeUp}
               className="lg:col-span-4 flex items-stretch"
             >
-              <div className="rounded-[3rem] overflow-hidden shadow-xl w-full">
-                <img src={images.fruitTea} alt="Boba tea selection" className="w-full h-full object-cover" />
+              <div className="rounded-[3rem] overflow-hidden shadow-xl w-full aspect-[4/5]">
+                <img
+                  src={images.body.cafeInterior}
+                  alt="Inside Mylo's cafe in Austin"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </motion.div>
 
             <div className="lg:col-span-8">
-              <h3 className="text-lg font-black text-foreground mb-5 uppercase tracking-wider text-primary">Milk Teas</h3>
+              <h3 className="text-lg font-black text-foreground mb-2 uppercase tracking-wider text-primary">Milk Teas</h3>
+              <p className="text-gray-400 text-sm mb-5">{milkTeaBaseNote}</p>
               <div className="space-y-3">
                 {milkTeas.map((item, i) => (
                   <motion.div
@@ -126,7 +96,7 @@ export default function Home() {
                     whileInView="visible"
                     viewport={{ once: true }}
                     variants={fadeUp}
-                    transition={{ delay: i * 0.07 }}
+                    transition={{ delay: i * 0.06 }}
                     className="flex justify-between items-center py-4 px-5 rounded-2xl bg-white hover:bg-primary/5 transition-colors group"
                   >
                     <div className="flex items-center gap-3">
@@ -137,13 +107,13 @@ export default function Home() {
                             {item.name}
                           </span>
                           {item.popular && (
-                            <span className="bg-primary text-white text-xs font-bold px-2 py-0.5 rounded-full">fave</span>
+                            <span className="bg-primary text-primary-foreground text-xs font-bold px-2 py-0.5 rounded-full">fave</span>
                           )}
                         </div>
                         <p className="text-gray-400 text-sm mt-0.5">{item.desc}</p>
                       </div>
                     </div>
-                    <span className="font-black text-foreground ml-4 shrink-0 text-sm">from {item.priceLarge}</span>
+                    <span className="font-black text-primary ml-4 shrink-0 text-sm">{bobaPricing.flavorAddon}</span>
                   </motion.div>
                 ))}
               </div>
@@ -151,12 +121,13 @@ export default function Home() {
           </div>
 
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="mb-10">
-            <h3 className="text-lg font-black uppercase tracking-wider text-foreground mb-5">
+            <h3 className="text-lg font-black uppercase tracking-wider text-foreground mb-2">
               Fruit Teas{" "}
               <span className="text-gray-400 text-sm font-normal normal-case tracking-normal ml-1">
-                from {bobaPricing.fruitTeaFrom}
+                flavor add-on {bobaPricing.flavorAddon}
               </span>
             </h3>
+            <p className="text-gray-400 text-sm mb-5">{fruitTeaBaseNote}</p>
             <div className="flex flex-wrap gap-3">
               {fruitTeas.map((f, i) => (
                 <motion.div
@@ -185,7 +156,7 @@ export default function Home() {
                   viewport={{ once: true }}
                   variants={fadeUp}
                   transition={{ delay: i * 0.04 }}
-                  className="bg-white hover:bg-[#FFD600]/10 rounded-full px-5 py-2.5 font-semibold text-foreground text-sm transition-colors cursor-default shadow-sm flex items-center gap-1"
+                  className="bg-card hover:bg-accent/15 rounded-full px-5 py-2.5 font-semibold text-foreground text-sm transition-colors cursor-default shadow-sm flex items-center gap-1"
                 >
                   {item.name}
                   {item.note && <span className="text-gray-400 text-xs ml-1">({item.note})</span>}
@@ -194,7 +165,7 @@ export default function Home() {
             </div>
           </motion.div>
 
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="mb-10">
             <h3 className="text-lg font-black uppercase tracking-wider text-foreground mb-5">Toppings</h3>
             <div className="flex flex-wrap gap-3">
               {toppings.map((t, i) => (
@@ -213,18 +184,161 @@ export default function Home() {
             </div>
           </motion.div>
 
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-center mt-14">
-            <Link
-              href="/boba"
-              className="inline-block bg-foreground text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-primary transition-colors shadow-lg"
-            >
-              Full Boba Menu →
-            </Link>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
+            <h3 className="text-lg font-black uppercase tracking-wider text-foreground mb-6">Customize</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                <h4 className="font-black text-foreground uppercase tracking-wider text-sm mb-4">Sugar Level</h4>
+                <div className="space-y-1">
+                  {sugarLevels.map((level, i) => (
+                    <div
+                      key={level.label}
+                      className={`flex justify-between items-center py-3 text-sm ${i < sugarLevels.length - 1 ? "border-b border-gray-100" : ""}`}
+                    >
+                      <span className="font-semibold text-foreground">{level.label}</span>
+                      <span className="font-bold text-gray-400">{level.price}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                <h4 className="font-black text-foreground uppercase tracking-wider text-sm mb-4">Ice Level</h4>
+                <div className="space-y-1">
+                  {iceLevels.map((level, i) => (
+                    <div
+                      key={level.label}
+                      className={`flex justify-between items-center py-3 text-sm ${i < iceLevels.length - 1 ? "border-b border-gray-100" : ""}`}
+                    >
+                      <span className="font-semibold text-foreground">{level.label}</span>
+                      <span className={`font-bold ${level.price.startsWith("+") ? "text-primary" : "text-gray-400"}`}>
+                        {level.price}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                <h4 className="font-black text-foreground uppercase tracking-wider text-sm mb-4">Milk Tea Add-ons</h4>
+                <div className="space-y-1">
+                  {bobaAddons.map((addon) => (
+                    <div key={addon.label} className="flex justify-between items-center py-3 text-sm">
+                      <span className="font-semibold text-foreground">{addon.label}</span>
+                      <span className="font-bold text-primary">{addon.price}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>
 
-      <section id="ice-cream-menu" className="py-24 bg-secondary relative overflow-hidden">
+      {/* ── COFFEE & WAFFLES ── */}
+      <section id="coffee-menu" className="py-24 bg-white scroll-mt-24">
+        <div className="container mx-auto px-6 max-w-6xl">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            className="text-center mb-16"
+          >
+            <div className="inline-block bg-primary/10 text-primary font-bold px-4 py-2 rounded-full mb-4 text-sm uppercase tracking-widest">
+              ☕ Coffee
+            </div>
+            <h2 className="text-5xl md:text-6xl font-display font-black text-foreground mb-4">COFFEE &amp; WAFFLES</h2>
+            <p className="text-gray-400 text-lg">Hot 8oz · Iced 16oz · Syrups {syrupPrice}</p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-16">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
+              <h3 className="text-xl font-black text-foreground mb-4 uppercase tracking-wider">Hot · 8oz</h3>
+              <div className="space-y-2">
+                {coffeeHot.map((item) => (
+                  <div
+                    key={`hot-${item.name}`}
+                    className="flex justify-between items-center py-3 px-5 rounded-2xl bg-muted hover:bg-primary/5 transition-colors"
+                  >
+                    <span className="font-bold text-foreground">{item.name}</span>
+                    <span className="font-black text-primary">{item.price}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
+              <h3 className="text-xl font-black text-foreground mb-4 uppercase tracking-wider">Iced · 16oz</h3>
+              <div className="space-y-2">
+                {coffeeIced.map((item) => (
+                  <div
+                    key={`iced-${item.name}`}
+                    className="flex justify-between items-center py-3 px-5 rounded-2xl bg-muted hover:bg-primary/5 transition-colors"
+                  >
+                    <span className="font-bold text-foreground">{item.name}</span>
+                    <span className="font-black text-primary">{item.price}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-16">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
+              <h3 className="text-lg font-black uppercase tracking-wider text-foreground mb-4">Add-ons</h3>
+              <div className="space-y-2">
+                {coffeeAddons.map((a) => (
+                  <div key={a.label} className="flex justify-between py-3 px-5 rounded-2xl border border-gray-100">
+                    <span className="font-semibold">{a.label}</span>
+                    <span className="font-bold">{a.price}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
+              <h3 className="text-lg font-black uppercase tracking-wider text-foreground mb-4">Syrups · {syrupPrice}</h3>
+              <div className="flex flex-wrap gap-2">
+                {coffeeSyrups.map((s) => (
+                  <span key={s} className="bg-muted px-4 py-2 rounded-full text-sm font-semibold text-foreground border border-border">
+                    {s}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+
+          <motion.div id="waffles-menu" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="scroll-mt-24">
+            <h3 className="text-3xl font-display font-black text-foreground mb-8 text-center uppercase">Waffles</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {waffles.map((w, i) => (
+                <motion.div
+                  key={w.name}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={fadeUp}
+                  transition={{ delay: i * 0.08 }}
+                  className="bg-muted rounded-[2rem] p-8 hover:shadow-lg transition-shadow border border-border"
+                >
+                  <span className="text-4xl mb-4 block">{w.emoji}</span>
+                  <div className="flex items-start justify-between gap-2 mb-3">
+                    <h4 className="font-display font-black text-xl text-foreground uppercase leading-tight">{w.name}</h4>
+                    {"popular" in w && w.popular && (
+                      <span className="bg-primary text-primary-foreground text-xs font-bold px-2 py-0.5 rounded-full shrink-0">fave</span>
+                    )}
+                  </div>
+                  <p className="text-gray-500 text-sm mb-4 leading-relaxed">{w.desc}</p>
+                  <span className="text-2xl font-black text-primary">{w.price}</span>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── ICE CREAM ── */}
+      <section id="ice-cream-menu" className="py-24 bg-secondary relative overflow-hidden scroll-mt-24">
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary/20 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/20 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
 
@@ -237,14 +351,12 @@ export default function Home() {
             className="text-center mb-16"
           >
             <div className="inline-block bg-accent/20 text-accent font-bold px-4 py-2 rounded-full mb-4 text-sm uppercase tracking-widest border border-accent/30">
-              🍦 Ice Cream
+              🍦 Stone Ice Cream
             </div>
-            <h2 className="text-5xl md:text-6xl font-display font-black text-white mb-4">
+            <h2 className="text-5xl md:text-6xl font-display font-black text-secondary-foreground mb-4">
               SCOOP IT <span className="text-accent">YOUR WAY</span>
             </h2>
-            <p className="text-white/60 text-lg max-w-xl mx-auto">
-              16+ rotating flavors, hand-crafted daily. Go wild with mix-ins and drizzles.
-            </p>
+            <p className="text-secondary-foreground/60 text-lg max-w-xl mx-auto">{iceCreamHighlight.tagline}</p>
           </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-14">
@@ -255,8 +367,12 @@ export default function Home() {
               variants={fadeUp}
               className="lg:col-span-4 flex items-stretch"
             >
-              <div className="rounded-[3rem] overflow-hidden shadow-2xl w-full">
-                <img src={images.iceCream} alt="Artisan ice cream" className="w-full h-full object-cover" />
+              <div className="rounded-[3rem] overflow-hidden shadow-2xl w-full border-4 border-white/10 aspect-[4/5]">
+                <img
+                  src={images.body.toppingsBar}
+                  alt="Mix-ins and toppings bar at Mylo's"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </motion.div>
 
@@ -273,8 +389,8 @@ export default function Home() {
                     className={`flex justify-between items-center px-6 py-4 rounded-2xl border ${s.bg} ${s.border}`}
                   >
                     <div>
-                      <span className="text-white font-bold text-lg">{s.name}</span>
-                      <p className="text-white/50 text-sm">{s.note}</p>
+                      <span className="text-secondary-foreground font-bold text-lg">{s.name}</span>
+                      <p className="text-secondary-foreground/50 text-sm">{s.note}</p>
                     </div>
                     <span className={`text-3xl font-black ${s.priceColor}`}>{s.price}</span>
                   </motion.div>
@@ -289,80 +405,134 @@ export default function Home() {
                 className="grid grid-cols-2 gap-3"
               >
                 <div className="bg-white/5 border border-white/10 rounded-2xl p-5">
-                  <p className="text-white/50 text-xs uppercase tracking-widest mb-3">Mix-ins</p>
+                  <p className="text-secondary-foreground/50 text-xs uppercase tracking-widest mb-3">Mix-ins</p>
                   <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span className="text-white/80">1st topping</span>
-                      <span className="text-white font-bold">Free</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-white/80">Each additional</span>
-                      <span className="text-white font-bold">+$0.75</span>
-                    </div>
+                    {iceCreamMixins.map((m) => (
+                      <div key={m.label} className="flex justify-between">
+                        <span className="text-secondary-foreground/80">{m.label}</span>
+                        <span className="text-secondary-foreground font-bold">{m.price}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
                 <div className="bg-white/5 border border-white/10 rounded-2xl p-5">
-                  <p className="text-white/50 text-xs uppercase tracking-widest mb-3">Drizzles</p>
+                  <p className="text-secondary-foreground/50 text-xs uppercase tracking-widest mb-3">Drizzles</p>
                   <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span className="text-white/80">First drizzle</span>
-                      <span className="text-white font-bold">+$0.75</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-white/80">Each additional</span>
-                      <span className="text-white font-bold">+$0.50</span>
-                    </div>
+                    {iceCreamDrizzles.map((d) => (
+                      <div key={d.label} className="flex justify-between">
+                        <span className="text-secondary-foreground/80">{d.label}</span>
+                        <span className="text-secondary-foreground font-bold">{d.price}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
+              </motion.div>
+
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeUp}
+                className="bg-white/10 border border-white/20 rounded-2xl px-6 py-5 flex justify-between items-center"
+              >
+                <div>
+                  <p className="text-accent font-bold uppercase tracking-widest text-xs mb-1">Featured</p>
+                  <p className="text-secondary-foreground font-display font-black text-xl">{iceCreamHighlight.name}</p>
+                </div>
+                <span className="text-3xl font-black text-accent">{iceCreamHighlight.price}</span>
               </motion.div>
             </div>
           </div>
 
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-black text-white">Current Flavors</h3>
-              <span className="bg-white/10 text-white/70 border border-white/20 px-4 py-1.5 rounded-full text-sm font-semibold">
-                16+ Rotating
-              </span>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-              {iceCreamFlavors.map((flavor, i) => (
-                <motion.div
-                  key={flavor.name}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={fadeUp}
-                  transition={{ delay: i * 0.03 }}
-                  className="flex items-center gap-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl px-4 py-3 group transition-colors cursor-default"
-                >
-                  <div
-                    className="w-4 h-4 rounded-full shrink-0 border border-white/20"
-                    style={{ backgroundColor: flavor.color }}
-                  />
-                  <span className="text-sm font-semibold text-white/80 group-hover:text-white transition-colors">
-                    {flavor.name}
-                  </span>
-                </motion.div>
-              ))}
-            </div>
-            <p className="text-white/30 text-sm text-center mt-6">
-              Flavors rotate seasonally — ask your server for today&apos;s full lineup.
-            </p>
-          </motion.div>
-
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-center mt-12">
-            <Link
-              href="/ice-cream"
-              className="inline-block bg-accent text-secondary px-10 py-4 rounded-full font-bold text-lg hover:bg-white transition-colors shadow-lg"
-            >
-              Full Ice Cream Menu →
-            </Link>
-          </motion.div>
+          <p className="text-secondary-foreground/30 text-sm text-center">
+            Flavors rotate daily — ask your server for today&apos;s stone ice cream lineup.
+          </p>
         </div>
       </section>
 
-      <section className="py-24 bg-gradient-to-b from-[#1A0E3A] to-[#2D1B5A]">
+      {/* ── FIND US ── */}
+      <section id="find-us" className="py-24 bg-background scroll-mt-24">
+        <div className="container mx-auto px-6 max-w-5xl">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            className="text-center mb-12"
+          >
+            <h2 className="text-5xl md:text-6xl font-display font-black text-foreground mb-4">FIND US</h2>
+            <p className="text-gray-500 text-lg">Drop by for a sip, a scoop, or both.</p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeUp}
+              className="rounded-[2rem] overflow-hidden shadow-lg min-h-[280px]"
+            >
+              <img
+                src={images.body.storefront}
+                alt="Mylo's storefront sign"
+                className="w-full h-full object-cover min-h-[280px] lg:min-h-full"
+              />
+            </motion.div>
+
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeUp}
+              transition={{ delay: 0.1 }}
+              className="bg-white p-10 rounded-[2rem] shadow-sm border border-gray-100 flex flex-col"
+            >
+            <h3 className="text-2xl font-display font-bold text-primary mb-8 uppercase">{location.name}</h3>
+            <div className="space-y-6 mb-8">
+              <div className="flex items-start gap-4">
+                <div className="bg-primary/10 p-3 rounded-xl text-primary">
+                  <MapPin size={22} />
+                </div>
+                <div>
+                  <p className="font-bold text-foreground">Address</p>
+                  <p className="text-gray-600 font-medium">
+                    {location.address.line1}
+                    <br />
+                    {location.address.line2}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="bg-primary/10 p-3 rounded-xl text-primary">
+                  <Clock size={22} />
+                </div>
+                <div>
+                  <p className="font-bold text-foreground">Hours</p>
+                  <p className="text-gray-600 font-medium">
+                    {location.hours.map((line) => (
+                      <span key={line} className="block">
+                        {line}
+                      </span>
+                    ))}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <a
+              href={location.mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 w-full bg-primary text-primary-foreground rounded-full px-6 py-4 font-bold hover:opacity-90 transition-opacity"
+            >
+              Get directions
+              <ExternalLink size={18} aria-hidden />
+            </a>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-24 bg-secondary">
         <div className="container mx-auto px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -370,7 +540,7 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-5xl md:text-6xl font-display font-bold text-white mb-12">JOIN THE PARTY</h2>
+            <h2 className="text-5xl md:text-6xl font-display font-bold text-secondary-foreground mb-12">JOIN THE PARTY</h2>
             <SocialLinks />
           </motion.div>
         </div>
