@@ -9,8 +9,10 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
-      <Route path="/boba">{() => <Redirect to="/#boba-menu" />}</Route>
-      <Route path="/ice-cream">{() => <Redirect to="/#ice-cream-menu" />}</Route>
+      <Route path="/boba">{() => <Redirect to="/#menu-boba" />}</Route>
+      <Route path="/ice-cream">{() => <Redirect to="/#menu-ice-cream" />}</Route>
+      <Route path="/coffee">{() => <Redirect to="/#menu-coffee" />}</Route>
+      <Route path="/waffles">{() => <Redirect to="/#menu-waffles" />}</Route>
       <Route path="/about">{() => <Redirect to="/#top" />}</Route>
       <Route path="/find-us">{() => <Redirect to="/#find-us" />}</Route>
       <Route path="/privacy" component={Privacy} />

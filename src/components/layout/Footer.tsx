@@ -7,27 +7,17 @@ export default function Footer() {
     <footer className="bg-secondary text-secondary-foreground pt-16 pb-8">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-          <div>
+          <div className="relative overflow-visible">
             <Logo variant="footer" className="mb-4" />
-            <p className="text-gray-300 font-bold text-lg">{site.tagline}</p>
+            <p className="relative text-gray-300 font-bold text-lg">{site.tagline}</p>
           </div>
 
           <div>
             <h4 className="font-display text-xl mb-6 text-white">MENU</h4>
             <ul className="space-y-4">
               <li>
-                <a href="#boba-menu" className="text-gray-300 hover:text-primary transition-colors font-semibold">
-                  Boba Teas
-                </a>
-              </li>
-              <li>
-                <a href="#coffee-menu" className="text-gray-300 hover:text-primary transition-colors font-semibold">
-                  Coffee &amp; Waffles
-                </a>
-              </li>
-              <li>
-                <a href="#ice-cream-menu" className="text-gray-300 hover:text-primary transition-colors font-semibold">
-                  Stone Ice Cream
+                <a href="#menu" className="text-gray-300 hover:text-primary transition-colors font-semibold">
+                  View Menu
                 </a>
               </li>
             </ul>

@@ -5,9 +5,7 @@ import Logo from "@/components/brand/Logo";
 
 const navLinks = [
   { name: "Home", href: "/#welcome" },
-  { name: "Boba", href: "/#boba-menu" },
-  { name: "Coffee", href: "/#coffee-menu" },
-  { name: "Ice Cream", href: "/#ice-cream-menu" },
+  { name: "Menu", href: "/#menu" },
   { name: "Find Us", href: "/#find-us" },
 ];
 
@@ -63,7 +61,7 @@ export default function Navbar() {
   return (
     <nav
       id="top"
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+      className={`fixed top-0 w-full z-[60] transition-all duration-300 ${
         heroNav
           ? "bg-transparent py-5"
           : isScrolled
