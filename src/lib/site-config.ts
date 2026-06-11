@@ -64,4 +64,9 @@ export const images = {
     slushie: "/images/promo/slushie.png",
     ubeIceCream: "/images/promo/ube-ice-cream.png",
   },
+  menu: {
+    boba: "/images/boba-prep.png",
+    coffee: "/images/cafe-interior.png",
+    iceCream: "/images/toppings-bar.png",
+  },
 } as const;
