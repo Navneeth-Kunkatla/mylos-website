@@ -50,23 +50,25 @@ export const locations: Location[] = [
   },
 ];
 
+const asset = (p: string) => `${env.BASE_URL}${p.replace(/^\//, "")}`;
+
 /** Site photos — promo posters vs in-store body shots */
 export const images = {
-  logo: "/images/mylos-logo.png",
+  logo: asset("/images/mylos-logo.png"),
   body: {
-    cafeInterior: "/images/cafe-interior.png",
-    toppingsBar: "/images/toppings-bar.png",
-    storefront: "/images/storefront.png",
+    cafeInterior: asset("/images/cafe-interior.png"),
+    toppingsBar: asset("/images/toppings-bar.png"),
+    storefront: asset("/images/storefront.png"),
   },
-  og: "/og-image.svg",
+  og: asset("/og-image.svg"),
   promo: {
-    milkBoba: "/images/promo/milk-boba.png",
-    slushie: "/images/promo/slushie.png",
-    ubeIceCream: "/images/promo/ube-ice-cream.png",
+    milkBoba: asset("/images/promo/milk-boba.png"),
+    slushie: asset("/images/promo/slushie.png"),
+    ubeIceCream: asset("/images/promo/ube-ice-cream.png"),
   },
   menu: {
-    boba: "/images/boba-prep.png",
-    coffee: "/images/cafe-interior.png",
-    iceCream: "/images/toppings-bar.png",
+    boba: asset("/images/boba-prep.png"),
+    coffee: asset("/images/cafe-interior.png"),
+    iceCream: asset("/images/toppings-bar.png"),
   },
 } as const;
