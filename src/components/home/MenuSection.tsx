@@ -3,7 +3,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
 import { images } from "@/lib/site-config";
 import {
-  bobaPricing,
   milkTeas,
   fruitTeas,
   lemonadeSlushies,
@@ -15,7 +14,6 @@ import {
   coffeeIced,
   coffeeAddons,
   coffeeSyrups,
-  syrupPrice,
   waffles,
   iceCreamSizes,
   iceCreamMixins,
@@ -84,13 +82,8 @@ function Label({ children, accent }: { children: ReactNode; accent?: string }) {
   );
 }
 
-function Row({ name, price }: { name: string; price: string }) {
-  return (
-    <div className="flex justify-between gap-4 leading-snug">
-      <span>{name}</span>
-      <span className="font-semibold text-foreground shrink-0">{price}</span>
-    </div>
-  );
+function Row({ name }: { name: string }) {
+  return <div className="leading-snug">{name}</div>;
 }
 
 function DotList({ items }: { items: string[] }) {
@@ -135,11 +128,8 @@ export default function MenuSection() {
   const slushieNames = lemonadeSlushies.map((s) => (s.note ? `${s.name} (${s.note})` : s.name));
   const toppingNames = toppings.map((t) => t.name);
 
-  const sugarNote = sugarLevels.every((s) => s.price === "no charge")
-    ? "Sugar: Minimum · 50% · Regular · 125% — no charge"
-    : sugarLevels.map((s) => `${s.label} ${s.price}`).join(" · ");
-
-  const iceNote = iceLevels.map((l) => `${l.label} ${l.price === "no charge" ? "" : l.price}`.trim()).join(" · ");
+  const sugarNote = `Sugar: ${sugarLevels.join(" · ")}`;
+  const iceNote = iceLevels.join(" · ");
 
   return (
     <section id="menu" className="relative py-14 md:py-20 scroll-mt-24 overflow-hidden">
@@ -266,19 +256,14 @@ export default function MenuSection() {
               {activeTab === "boba" && (
                 <div id="menu-boba" className="scroll-mt-28">
                   <MenuPanel>
-                    <Note>
-                      Medium {bobaPricing.medium} · Large {bobaPricing.large} · Flavor add-on{" "}
-                      {bobaPricing.flavorAddon}
-                    </Note>
                     <div>
                       <Label accent={current.accent}>Milk teas</Label>
                       <DotList items={milkTeaNames} />
-                      <Note>Green / black / no tea base · Non-dairy milk +$1.00 · * fan favorite</Note>
+                      <Note>Green / black / no tea base · * fan favorite</Note>
                     </div>
                     <div>
                       <Label accent={current.accent}>Fruit teas</Label>
                       <DotList items={fruitTeaNames} />
-                      <Note>Flavor add-on {bobaPricing.flavorAddon}</Note>
                     </div>
                     <div>
                       <Label accent={current.accent}>Lemonade &amp; slushies</Label>
@@ -292,11 +277,7 @@ export default function MenuSection() {
                       <Label accent={current.accent}>Customize</Label>
                       <Note>{sugarNote}</Note>
                       <Note className="mt-1">Ice: {iceNote}</Note>
-                      {bobaAddons.map((a) => (
-                        <Note key={a.label} className="mt-1">
-                          {a.label} {a.price}
-                        </Note>
-                      ))}
+                      <Note className="mt-1">{bobaAddons.join(" · ")}</Note>
                     </div>
                   </MenuPanel>
                 </div>
@@ -305,27 +286,26 @@ export default function MenuSection() {
               {activeTab === "coffee" && (
                 <div id="menu-coffee" className="scroll-mt-28">
                   <MenuPanel>
-                    <Note>Hot 8oz · Iced 16oz · Syrups {syrupPrice}</Note>
+                    <Note>Hot 8oz · Iced 16oz</Note>
                     <div>
                       <Label accent={current.accent}>Hot</Label>
                       <div className="space-y-1 mt-1">
-                        {coffeeHot.map((item) => (
-                          <Row key={`hot-${item.name}`} name={item.name} price={item.price} />
+                        {coffeeHot.map((name) => (
+                          <Row key={`hot-${name}`} name={name} />
                         ))}
                       </div>
                     </div>
                     <div>
                       <Label accent={current.accent}>Iced</Label>
                       <div className="space-y-1 mt-1">
-                        {coffeeIced.map((item) => (
-                          <Row key={`iced-${item.name}`} name={item.name} price={item.price} />
+                        {coffeeIced.map((name) => (
+                          <Row key={`iced-${name}`} name={name} />
                         ))}
                       </div>
                     </div>
-                    <div className="space-y-1">
-                      {coffeeAddons.map((a) => (
-                        <Row key={a.label} name={a.label} price={a.price} />
-                      ))}
+                    <div>
+                      <Label accent={current.accent}>Add-ons</Label>
+                      <DotList items={[...coffeeAddons]} />
                     </div>
                     <div>
                       <Label accent={current.accent}>Syrups</Label>
@@ -341,18 +321,14 @@ export default function MenuSection() {
                     <Note>{iceCreamHighlight.tagline} — flavors rotate daily.</Note>
                     <div className="space-y-1.5">
                       {iceCreamSizes.map((s) => (
-                        <Row key={s.name} name={`${s.name} — ${s.note}`} price={s.price} />
+                        <Row key={s.name} name={`${s.name} — ${s.note}`} />
                       ))}
                     </div>
-                    <div className="space-y-1">
-                      {iceCreamMixins.map((m) => (
-                        <Row key={m.label} name={m.label} price={m.price} />
-                      ))}
-                      {iceCreamDrizzles.map((d) => (
-                        <Row key={d.label} name={d.label} price={d.price} />
-                      ))}
+                    <div>
+                      <Label accent={current.accent}>Mix-ins &amp; drizzles</Label>
+                      <DotList items={[...iceCreamMixins, ...iceCreamDrizzles]} />
                     </div>
-                    <Row name={`Featured — ${iceCreamHighlight.name}`} price={iceCreamHighlight.price} />
+                    <Row name={`Featured — ${iceCreamHighlight.name}`} />
                   </MenuPanel>
                 </div>
               )}
@@ -384,11 +360,10 @@ export default function MenuSection() {
                   key={w.name}
                   className="rounded-2xl border border-primary/15 bg-card/80 p-4 hover:border-accent/50 hover:shadow-md hover:shadow-accent/10 transition-all"
                 >
-                  <div className="flex items-start justify-between gap-3 mb-2">
+                  <div className="mb-2">
                     <span className="text-2xl" aria-hidden>
                       {w.emoji}
                     </span>
-                    <span className="font-display font-black text-primary text-lg shrink-0">{w.price}</span>
                   </div>
                   <p className="font-bold text-foreground leading-snug">
                     {w.name}

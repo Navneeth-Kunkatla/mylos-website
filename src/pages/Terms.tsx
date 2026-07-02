@@ -8,10 +8,10 @@ export default function Terms() {
         By using the {site.legalName} website, you agree to these terms. If you do not agree, please do not use
         the site.
       </p>
-      <h2>Menu and pricing</h2>
+      <h2>Menu</h2>
       <p>
-        Menu items, flavors, and prices shown online are for general information. In-store availability and
-        pricing may vary. Seasonal flavors rotate; ask your server for today&apos;s full lineup.
+        Menu items and flavors shown online are for general information. In-store availability may vary.
+        Seasonal flavors rotate; ask your server for today&apos;s full lineup and current pricing.
       </p>
       <h2>Intellectual property</h2>
       <p>

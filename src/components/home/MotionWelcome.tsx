@@ -10,7 +10,6 @@ type SpotlightCard = {
   alt: string;
   label: string;
   sublabel?: string;
-  price: string;
   href: string;
   accent: string;
   glow: string;
@@ -22,7 +21,6 @@ const spotlightCards: SpotlightCard[] = [
     src: images.promo.milkBoba,
     alt: "Mylo's milk boba",
     label: "Milk Boba",
-    price: "$6.49",
     href: "#menu-boba",
     accent: "#5ec4e0",
     glow: "rgba(94, 196, 224, 0.35)",
@@ -32,7 +30,7 @@ const spotlightCards: SpotlightCard[] = [
     src: images.promo.slushie,
     alt: "Mylo's slushie",
     label: "Slushie",
-    price: "Chill & refresh",
+    sublabel: "Chill & refresh",
     href: "#menu-boba",
     accent: "#F4C430",
     glow: "rgba(244, 196, 48, 0.35)",
@@ -43,7 +41,6 @@ const spotlightCards: SpotlightCard[] = [
     alt: "Mylo's ube stone ice cream",
     label: "Ube",
     sublabel: "Stone ice cream",
-    price: "$6.95",
     href: "#menu-ice-cream",
     accent: "#c9a0ff",
     glow: "rgba(201, 160, 255, 0.35)",
@@ -249,7 +246,6 @@ export default function MotionWelcome() {
                             {card.sublabel}
                           </span>
                         )}
-                        <span className="text-white/90 text-xs font-bold">{card.price}</span>
                       </span>
                     </motion.div>
                   )}
